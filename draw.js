@@ -15,7 +15,7 @@ const FSHADER_SOURCE = `
 
 function main() { 
   const canvas = document.getElementById("example");
-  const gl = canvas.getContext('webgl');
+  const gl = canvas.getContext('webgl', { antialias: false });
 
   if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) console.error('failed to initialize shaders')
 
