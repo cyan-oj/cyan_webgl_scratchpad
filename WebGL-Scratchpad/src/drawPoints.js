@@ -1,28 +1,15 @@
 import { initShaders } from './lib/cuon-utils'
+import { VSHADER_SOURCE, FSHADER_SOURCE } from './shaders';
 
-const VSHADER_SOURCE = `
-  attribute vec4 a_Position;
-  attribute float a_PointSize;
-  void main() {
-    gl_Position = a_Position;
-    gl_PointSize = a_PointSize;
-  }
-`
-
-const FSHADER_SOURCE = `
-  precision mediump float;
-  uniform vec4 u_FragColor;
-  void main() {
-    gl_FragColor = u_FragColor;
-  }
-`
-
-
-function main() { 
+function coloredPoints() { 
   const canvas = document.getElementById("example");
   const gl = canvas.getContext('webgl', { antialias: false });
 
   if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) console.error('failed to initialize shaders')
+
+  // const points = initVertexBuffers(gl);
+
+  // if (!points) console.error('failed to set vertex positions')
 
   const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
   const a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
@@ -57,11 +44,11 @@ function main() {
 
     for(let i = 0; i < len; i += 1){
       gl.vertexAttrib3f(a_Position, g_points[i][0], g_points[i][1], 0.0);
-      gl.vertexAttrib1f(a_PointSize, 5.0);
+      gl.vertexAttrib1f(a_PointSize, 10.0);
       gl.uniform4f(u_FragColor, g_colors[i][0], g_colors[i][1], g_colors[i][2], g_colors[i][3])
       gl.drawArrays(gl.points, 0, 1)
     }
   }
 } 
 
-export default main;
+export default coloredPoints;
