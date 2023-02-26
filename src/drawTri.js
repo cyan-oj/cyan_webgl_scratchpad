@@ -9,9 +9,10 @@ function drawTri() {
   if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) console.error('failed to initialize shaders')
 
   const vertices = new Float32Array([
-    0.0, 0.5, 
+    -0.5, 0.5,
     -0.5, -0.5, 
-    0.5, -0.5,
+    0.5, 0.5, 
+    0.5, -0.5
   ]) 
   
   const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
@@ -25,7 +26,7 @@ function drawTri() {
   gl.uniform4f(u_FragColor, 0.3, 0.8, 0.8, 1)
   gl.clearColor(0.0, 0.0, 0.5, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT)
-  gl.drawArrays(gl.TRIANGLES, 0, vertices.length/2)
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertices.length/2)
 } 
 
 export default drawTri;
