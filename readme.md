@@ -1,0 +1,1 @@
+Scratchpad for exercises in Kouichi Matsuda and Rodger Lea's WebGL Programming Guide

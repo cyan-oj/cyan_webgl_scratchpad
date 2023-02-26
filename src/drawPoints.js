@@ -7,13 +7,8 @@ function coloredPoints() {
 
   if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) console.error('failed to initialize shaders')
 
-  // const points = initVertexBuffers(gl);
-
-  // if (!points) console.error('failed to set vertex positions')
-
   const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
   const a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
-
   const u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor')
 
   canvas.onmousemove = function(ev) { click(ev, gl, canvas, a_Position, u_FragColor); }

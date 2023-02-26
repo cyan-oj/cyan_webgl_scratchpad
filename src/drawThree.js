@@ -1,6 +1,6 @@
 import { initShaders } from './lib/cuon-utils'
 import { initVertexBuffers } from './lib/gl-helpers';
-import { VSHADER_SOURCE, FSHADER_SOURCE } from './shaders';
+import { VSHADER_SOURCE, FSHADER_SOURCE, TRANSLATABLE_VSHADER } from './shaders';
 
 function drawThree() { 
   const canvas = document.getElementById("example");
@@ -15,12 +15,12 @@ function drawThree() {
   ]) 
   
   const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
-  const a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
-  
+  const a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize')
   const u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor')
   
   const points = initVertexBuffers(gl, vertices, a_Position, a_PointSize);
   if (!points) console.error('failed to set vertex positions')
+
 
   gl.vertexAttrib1f(a_PointSize, 10.0);
   gl.uniform4f(u_FragColor, 0.3, 0.8, 0.8, 1)
