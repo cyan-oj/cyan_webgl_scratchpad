@@ -1,5 +1,6 @@
 import './style.css'
 import coloredPoints from './src/drawPoints'
+import drawThree from './src/drawThree'
 import drawTri from './src/drawTri'
 
 document.querySelector('#app').innerHTML = `
