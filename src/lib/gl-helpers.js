@@ -1,4 +1,4 @@
-export function initVertexBuffers(gl, vertices, a_Position, u_SinB, u_CosB) {
+export function initVertexBuffers(gl, vertices, a_Position) {
   const vertexBuffer = gl.createBuffer();
   if (!vertexBuffer){
     console.error('failed to create buffer object')

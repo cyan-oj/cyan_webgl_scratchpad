@@ -28,10 +28,10 @@ export const TRANSLATABLE_VSHADER = `
 // z' = z
 export const TRANSFORMABLE_VSHADER = `
   attribute vec4 a_Position;
-  uniform float u_CosB, u_SinB;
+  uniform vec2 u_CosBSinB;
   void main() {
-    gl_Position.x = a_Position.x * u_CosB - a_Position.y * u_SinB;
-    gl_Position.y = a_Position.x * u_SinB + a_Position.y * u_CosB;
+    gl_Position.x = a_Position.x * u_CosBSinB.x - a_Position.y * u_CosBSinB.y;
+    gl_Position.y = a_Position.x * u_CosBSinB.y + a_Position.y * u_CosBSinB.x;
     gl_Position.z = a_Position.z;
     gl_Position.w = 1.0;
   }

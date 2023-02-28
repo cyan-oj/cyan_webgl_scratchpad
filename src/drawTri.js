@@ -12,7 +12,7 @@ function drawTri() {
   // const Ty = 0.5
   // const Tz = 0.0
 
-  const ANGLE = 45.0;
+  const ANGLE = 120.0;
 
   const vertices = new Float32Array([
     -0.5, 0.5,
@@ -26,21 +26,20 @@ function drawTri() {
   // const u_Translation = gl.getUniformLocation(gl.program, 'u_Translation')
   // fragment shader properties
   const u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor')
+
+  const u_CosBSinB = gl.getUniformLocation(gl.program, 'u_CosBSinB')
   
   const points = initVertexBuffers(gl, vertices, a_Position);
   if (!points) console.error('failed to set vertex positions')
   console.log(points)
   
+
   const radian = Math.PI * ANGLE / 180.0; //convert to radians
   const cosB = Math.cos(radian)
-  const sinB = Math.cos(radian)
+  const sinB = Math.sin(radian)
   
-  const u_CosB = gl.getUniformLocation(gl.program, 'u_CosB')
-  const u_SinB = gl.getUniformLocation(gl.program, 'u_SinB')
 
-  
-  gl.uniform1f(u_CosB, cosB)
-  gl.uniform1f(u_SinB, sinB)
+  gl.uniform2f(u_CosBSinB, cosB, sinB)
 
   gl.uniform4f(u_FragColor, 0.3, 0.8, 0.8, 1)
   // gl.uniform4f(u_Translation, Tx, Ty, Tz, 0.0)
