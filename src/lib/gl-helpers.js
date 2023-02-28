@@ -1,4 +1,4 @@
-export function initVertexBuffers(gl, vertices, a_Position) {
+export function initVertexBuffers(gl, vertices, a_Position, u_SinB, u_CosB) {
   const vertexBuffer = gl.createBuffer();
   if (!vertexBuffer){
     console.error('failed to create buffer object')
@@ -8,5 +8,5 @@ export function initVertexBuffers(gl, vertices, a_Position) {
   gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW)
   gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(a_Position);
-  return vertices.length
+  return vertices.length/2
 }

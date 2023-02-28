@@ -33,8 +33,7 @@ function squareBrush() {
   
   const events = [];
   
-  const click = (evt, gl, canvas, a_Position, u_FragColor) => {
-    const translate = { x: 0, y: 0 }
+  const click = (evt, gl, canvas, u_FragColor) => {
     const rect = evt.target.getBoundingClientRect();
     translate.x = evt.clientX - rect.left;
     translate.y = evt.clientY - rect.top;

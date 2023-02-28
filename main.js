@@ -9,4 +9,4 @@ document.querySelector('#app').innerHTML = `
     <canvas id="example" width="512" height="512">
   </div>
 `
-squareBrush();
+drawTri();
