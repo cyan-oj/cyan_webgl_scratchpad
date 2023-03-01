@@ -1,4 +1,5 @@
 import { initShaders } from './lib/cuon-utils'
+import { Matrix4 } from './lib/cuon-matrix';
 import { initVertexBuffers } from './lib/gl-helpers';
 import { VSHADER_SOURCE, FSHADER_SOURCE, TRANSLATABLE_VSHADER, TRANSFORMABLE_VSHADER } from './shaders';
 
@@ -8,42 +9,43 @@ function drawTri() {
 
   if (!initShaders(gl, TRANSFORMABLE_VSHADER, FSHADER_SOURCE)) console.error('failed to initialize shaders')
 
-  // const Tx = 0.5
-  // const Ty = 0.5
-  // const Tz = 0.0
-
-  const ANGLE = 120.0;
-
   const vertices = new Float32Array([
     -0.5, 0.5,
     -0.5, -0.5, 
-    0.5, 0.5, 
-    0.5, -0.5
+    0.5,  0.5, 
+    0.5,  -0.5
   ]) 
 
-  // vertex shader properties
-  const a_Position = gl.getAttribLocation(gl.program, 'a_Position')
-  // const u_Translation = gl.getUniformLocation(gl.program, 'u_Translation')
-  // fragment shader properties
-  const u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor')
+  const translate = {
+    x: 0.5,
+    y: 0.5,
+    z: 0.0
+  }
 
-  const u_CosBSinB = gl.getUniformLocation(gl.program, 'u_CosBSinB')
+  const scale = {
+    x: 0.2,
+    y: 0.2,
+    z: 0.2
+  }
+
+  const ANGLE = 45.0;
+  const radian = Math.PI * ANGLE / 180.0; //convert to radians
+  const [ cosB, sinB ] = [ Math.cos(radian), Math.sin(radian) ]
+
+  const modelMatrix = new Matrix4();
+  modelMatrix.setRotate( ANGLE, 0, 0, 1 )
+  modelMatrix.translate( 0.0, 0.0, 0.0)
+
+  const u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix')
+  const a_Position = gl.getAttribLocation(gl.program, 'a_Position')
+  const u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor')
   
   const points = initVertexBuffers(gl, vertices, a_Position);
   if (!points) console.error('failed to set vertex positions')
   console.log(points)
   
-
-  const radian = Math.PI * ANGLE / 180.0; //convert to radians
-  const cosB = Math.cos(radian)
-  const sinB = Math.sin(radian)
-  
-
-  gl.uniform2f(u_CosBSinB, cosB, sinB)
-
+  gl.uniformMatrix4fv( u_ModelMatrix, false, modelMatrix.elements)
   gl.uniform4f(u_FragColor, 0.3, 0.8, 0.8, 1)
-  // gl.uniform4f(u_Translation, Tx, Ty, Tz, 0.0)
-
   gl.clearColor(0.0, 0.0, 0.5, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT)
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertices.length/2)

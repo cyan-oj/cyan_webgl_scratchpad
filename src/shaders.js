@@ -23,18 +23,10 @@ export const TRANSLATABLE_VSHADER = `
   }
 `
 
-// x' = x cos b - y sin b
-// y' = x sin b + y cos b
-// z' = z
 export const TRANSFORMABLE_VSHADER = `
   attribute vec4 a_Position;
-  uniform vec2 u_CosBSinB;
+  uniform mat4 u_ModelMatrix;
   void main() {
-    gl_Position.x = a_Position.x * u_CosBSinB.x - a_Position.y * u_CosBSinB.y;
-    gl_Position.y = a_Position.x * u_CosBSinB.y + a_Position.y * u_CosBSinB.x;
-    gl_Position.z = a_Position.z;
-    gl_Position.w = 1.0;
+    gl_Position = u_ModelMatrix * a_Position;
   }
-  `
-  // uniform vec4 u_Translation;
-  // gl_Position = a_Position + u_Translation;
+`
